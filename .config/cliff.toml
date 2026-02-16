@@ -34,10 +34,10 @@ footer = """
 {% for release in releases -%}
     {% if release.version -%}
     {% if release.previous.version -%}
-        [{{ release.version | trim_start_matches(pat="v") }}]: https://github.com/thgdiaz/python-project-utils/compare/{{ release.previous.version }}..{{ release.version }}
+        [{{ release.version | trim_start_matches(pat="v") }}]: https://github.com/TheAldersonProject/midgard/compare/{{ release.previous.version }}..{{ release.version }}
     {% endif -%}
     {% else -%}
-        [Unreleased]: https://github.com/thgdiaz/python-project-utils/compare/{{ releases | first | get(key="version") }}..HEAD
+        [Unreleased]: https://github.com/TheAldersonProject/midgard/compare/{{ releases | first | get(key="version") }}..HEAD
     {% endif -%}
 {% endfor %}
 <!-- End of CHANGELOG.md file. -->
@@ -108,7 +108,7 @@ sort_commits = "oldest"
 
 # Link pattern to use for generating links to commits
 link_parsers = [
-    { pattern = "#(\\d+)", href = "https://github.com/thgdiaz/python-project-utils/issues/$1" }
+    { pattern = "#(\\d+)", href = "https://github.com/TheAldersonProject/midgard/issues/$1" }
 ]
 
 [bump]

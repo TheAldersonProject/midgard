@@ -1,0 +1,24 @@
+# pydoc-markdown.yaml
+renderer:
+  type: markdown
+  # This ensures it's a single file, perfect for a GitHub wiki or README link
+#  output_file: "docs/API.md"
+  # Clean up the output by hiding internal stuff
+  render_toc: true
+#  insert_module_header: true
+  # Options for making the markdown look better on GitHub
+#  escape_html: true
+  code_headers: true
+
+loaders:
+  - type: python
+    # Point this to your source folder
+    search_path: ["."]
+    modules: ["midgard"] # Change this to your project name
+
+processors:
+  - type: filter
+    # Exclude private methods and internal helpers
+#    filter_expression: "not name.startswith('_') or name.endswith('__init__')"
+  - type: smart
+  - type: crossref

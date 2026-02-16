@@ -1,4 +1,4 @@
-"""Basic logging class for logging in JSON format."""
+"""Logging module."""
 
 import logging
 import uuid
@@ -34,7 +34,17 @@ class LogLevel(Enum):
 
 @singleton
 class Level:
-    """Class to manage logging levels for logging purposes."""
+    """
+    Represents a singleton configuration for managing a logging level.
+
+    This class serves as a centralized management system for logging levels in an
+    application. It uses a singleton pattern to ensure that there is only one
+    instance managing the logging level throughout the system. The `level` property
+    provides access to the current logging level.
+
+    :ivar level: The current logging level being managed by the instance.
+    :type level: LogLevel
+    """
 
     def __init__(self, level: LogLevel | None = None) -> None:
         if not level:
@@ -43,13 +53,35 @@ class Level:
 
     @property
     def level(self) -> LogLevel:
-        """Get the logging level."""
+        """
+        Property to get the logging level of the current instance.
+
+        The `level` property retrieves the logging level that is set for the
+        current instance of the class. This level determines the severity
+        level of log messages that the instance will process or output.
+
+        :rtype: LogLevel
+        :return: The current logging level of the instance.
+        """
+
         return self._level
 
 
 @singleton
-class PID:
-    """Class to manage process IDs for logging purposes."""
+class Configure:
+    """
+    Represents a universally unique process identifier.
+
+    This class is designed to generate and handle a universally unique
+    process ID (PID). If no PID is provided at initialization, a new
+    UUID-based PID is automatically generated. The class provides access
+    to the PID through both an instance property and a static method
+    for convenience.
+
+    :ivar pid: The universally unique process identifier associated
+               with the instance.
+    :type pid: str
+    """
 
     def __init__(self, pid: Any | None = None) -> None:
         if not pid:
@@ -58,13 +90,32 @@ class PID:
         self._pid = pid
 
     @property
-    def pid(self) -> str:
-        """Get the process ID."""
+    def p_id(self) -> str:
+        """
+        Provides access to the process ID (pid) as a string.
+
+        This property retrieves the process ID stored as a private
+        attribute and returns it in string format.
+
+        :return: The process ID as a string.
+        :rtype: str
+        """
         return str(self._pid)
 
     @staticmethod
-    def Pid() -> str:
-        return PID().pid
+    def pid() -> str:
+        """
+        Provides a method to retrieve a unique process identifier.
+
+        This static method generates and returns a globally unique identifier
+        that can be used to identify a process or a session. The identifier is
+        based on the current state of the system and is guaranteed to be unique
+        for the lifetime of the process.
+
+        :returns: A string representing the unique process identifier.
+        :rtype: str
+        """
+        return Configure().p_id
 
 
 class Logger:
@@ -106,7 +157,7 @@ class Logger:
             cache_logger_on_first_use=False,
         )
 
-        self._pid = PID.Pid()
+        self._pid = Configure.pid()
         self._uuid = logger_uuid or str(uuid4())
         self._log = structlog.get_logger()
         self._name = name
@@ -245,7 +296,17 @@ class Logger:
 
     @staticmethod
     def get_logger(logger_name: str | None = "", log_level: LogLevel | None = None) -> "Logger":
-        """Get logger with default parameters."""
+        """
+        Provides a static method to retrieve a logger instance configured with a specific name and log level.
+
+        :param logger_name: Specifies the name of the logger. If not provided, defaults to an empty string.
+        :type logger_name: str | None
+        :param log_level: Defines the logging level for the logger. If not specified, it defaults to `None`,
+            which utilizes a default log level as determined by `LogLevel`.
+        :type log_level: LogLevel | None
+        :return: Returns an instance of the `Logger` class configured with the specified name and log level.
+        :rtype: Logger
+        """
 
         log_level = Level(log_level).level
         return Logger(name=logger_name, log_level=log_level)
