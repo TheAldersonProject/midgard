@@ -1,0 +1,22 @@
+[project]
+name = "Midgard"
+version = "0.1.0"
+license = "MIT"
+license-files = ["LICENSE"]
+description = "Common functionalities to be shared between different projects."
+readme = "README.md"
+authors = [
+  {name = "Thiago Dias", email = "thiago@yggdrasil.codes"}
+]
+requires-python = ">=3.13"
+dependencies = [
+    "dotenv>=0.9.9",
+    "pyyaml>=6.0.3",
+    "structlog>=25.5.0",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
