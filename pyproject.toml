@@ -1,6 +1,6 @@
 [project]
 name = "Midgard"
-version = "0.1.0"
+version = "0.2.0"
 license = "MIT"
 license-files = ["LICENSE"]
 description = "Common functionalities to be shared between different projects."
